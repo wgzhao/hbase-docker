@@ -7,7 +7,7 @@
 # logs directory
 #
 
-IMAGE_NAME="dajobe/hbase"
+IMAGE_NAME="wgzhao/hbase"
 CONTAINER_NAME="hbase-docker"
 
 program=$(basename "$0")
@@ -49,8 +49,8 @@ fi
 declare -a config=(
   "REST API@8080@api"
   "REST UI@8085@web"
-  "Thrift API@9090@api"
-  "Thrift UI@9095@web"
+  "Thrift2 API@9090@api"
+  "Thrift2 UI@9095@web"
   "Zookeeper API@2181@api"
   "Master UI@16010@web"
 )

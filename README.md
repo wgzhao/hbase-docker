@@ -19,7 +19,7 @@ but this hasn't been fixed yet.
 Build Image
 -----------
 
-    $ docker build -t dajobe/hbase .
+    $ docker build -t wgzhao/hbase .
 
 
 Pull image
@@ -27,9 +27,9 @@ Pull image
 
 If you want to pull the image already built then use this
 
-    $ docker pull dajobe/hbase
+    $ docker pull wgzhao/hbase
 
-More details at https://hub.docker.com/r/dajobe/hbase/
+More details at https://hub.docker.com/r/wgzhao/hbase/
 
 
 Run HBase
@@ -91,7 +91,7 @@ Master status if docker container DNS name is 'hbase-docker'
 
 The region servers status pages are linked from the above page.
 
-Thrift UI
+Thrift2 UI
 
     http://hbase-docker:9095/thrift.jsp
 
@@ -123,20 +123,20 @@ To see the individual log files without using `docker`, look into
 the data volume dir eg $PWD/data/logs if invoked as above.
 
 
-Test HBase is working via python over Thrift
+Test HBase is working via python over Thrift2
 --------------------------------------------
 
 Here I am connecting to a the container's thrift API port (such as
 created by the start-hbase.sh script).  The port 32872 is the Thrift
-API port exported to the host because [Happybase][1] [2] uses Thrift
+API port exported to the host because [Easybase][1] [2] uses Thrift2
 to talk to HBase.
 
 	$ python3
 	Python 3.8.5 (default, Jul 21 2020, 10:48:26)
 	[Clang 11.0.3 (clang-1103.0.32.62)] on darwin
 	Type "help", "copyright", "credits" or "license" for more information.
-	>>> import happybase
-	>>> connection = happybase.Connection('127.0.0.1', 32872)
+	>>> import easybase
+	>>> connection = easybase.Connection('127.0.0.1', 32872)
 	>>> connection.create_table('table-name', { 'family': dict() } )
 	>>> connection.tables()
 	[b'table-name']
@@ -148,14 +148,14 @@ to talk to HBase.
 	b'row-key' {b'family:qual1': b'value1', b'family:qual2': b'value2'}
 	>>>
 
-(Simple install for happybase: `sudo pip install happybase` although I
-use `pip install --user happybase` to get it just for me)
+(Simple install for easybase: `sudo pip install easybase` although I
+use `pip install --user easybase` to get it just for me)
 
 
 Test HBase is working from Java
 -------------------------------
 
-    $ docker run --rm -it --link $id:hbase-docker dajobe/hbase hbase shell
+    $ docker run --rm -it --link $id:hbase-docker wgzhao/hbase hbase shell
 	HBase Shell
 	Use "help" to get list of supported commands.
 	Use "exit" to quit this interactive shell.
@@ -173,7 +173,7 @@ Test HBase is working from Java
 	=> ["table-name"]
     hbase(main):003:0>
 
-Showing the `table-name` table made in the happybase example above.
+Showing the `table-name` table made in the easybase example above.
 
 Alternatively if you have the Hbase distribution available on the
 host you can use `bin/hbase shell` if the hbase configuration has
@@ -219,4 +219,4 @@ Notes
 
 [1] http://happybase.readthedocs.org/en/latest/
 
-[2] https://github.com/wbolster/happybase
+[2] https://github.com/wgzhao/easybase
