@@ -5,11 +5,13 @@
 # http://docs.docker.io/en/latest/use/builder/
 
 FROM ubuntu:bionic
-MAINTAINER Dave Beckett <dave@dajobe.org>
+LABEL MAINTAINER="wgzhao <wgzhao@gmail.com>"
+
+ARG version
 
 COPY *.sh /build/
 
-ENV HBASE_VERSION 2.2.4
+ENV HBASE_VERSION=${version}
 
 RUN /build/prepare-hbase.sh && \
     cd /opt/hbase && /build/build-hbase.sh \
@@ -29,9 +31,9 @@ ADD ./hbase-server /opt/hbase-server
 EXPOSE 8080
 # REST Web UI at :8085/rest.jsp
 EXPOSE 8085
-# Thrift API
+# Thrift2 API
 EXPOSE 9090
-# Thrift Web UI at :9095/thrift.jsp
+# Thrift2 Web UI at :9095/thrift.jsp
 EXPOSE 9095
 # HBase's Embedded zookeeper cluster
 EXPOSE 2181
